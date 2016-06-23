@@ -40,15 +40,16 @@ namespace SlotMachine
                 Console.ReadKey(); // TODO Later: make this actually look for ENTER
                 myMachine.PullLever();
 
-                // display the results
-                int[] tempResults = myMachine.GetResults();
-                for (int i = 0; i < tempResults.Length; i++)
+               // display the results
+               // int[] tempResults = myMachine.GetResults();
+               // for (int i = 0; i < tempResults.Length; i++)
                 {
-                    Console.Write(tempResults[i] + " ");
+                //    Console.Write(tempResults[i] + " ");
                 }
 
                 // payout
-                Console.WriteLine("You won {0} pennies!", myMachine.GetPayout());
+
+                Console.WriteLine("\nYou won {0} pennies!", myMachine.GetPayout());
             }
 
         }
