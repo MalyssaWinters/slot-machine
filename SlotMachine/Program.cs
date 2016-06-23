@@ -41,15 +41,22 @@ namespace SlotMachine
                 myMachine.PullLever();
 
                // display the results
-               // int[] tempResults = myMachine.GetResults();
-               // for (int i = 0; i < tempResults.Length; i++)
+                int[] tempResults = myMachine.GetResults();
+                for (int i = 0; i < tempResults.Length; i++)
                 {
-                //    Console.Write(tempResults[i] + " ");
+                    Console.Write(tempResults[i] + " ");
                 }
 
                 // payout
-
-                Console.WriteLine("\nYou won {0} pennies!", myMachine.GetPayout());
+                if (myMachine.GetPayout() > 0)
+                {
+                    Console.WriteLine("\nYou won {0} pennies!", myMachine.GetPayout());
+                }
+                else
+                {
+                    Console.WriteLine("\nPlay again!");
+                }
+              
             }
 
         }

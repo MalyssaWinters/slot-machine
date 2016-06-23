@@ -13,7 +13,7 @@ namespace SlotMachine
         public int IconsPerSlot { get; set; }
         public int MinimumBet { get; set; }
         public int MaximumBet { get; set; }
-        public int slot1 = 0, slot2 = 0, slot3 = 0;
+        Random random;
 
         private int _currentBet;
         public int CurrentBet
@@ -40,8 +40,9 @@ namespace SlotMachine
         /// An array of integers that is as long as the number of slots,
         /// with each element of the array representing a different slot
         /// </summary>
-       // private int[] icons;
-                    
+
+        private int[] icons;
+
         public SlotMachine()
         {
             NumberOfSlots = 3;
@@ -56,17 +57,12 @@ namespace SlotMachine
         public void PullLever()
         {
             // TODO
-          
-            Random random = new Random();
-            slot1 = random.Next(1, 6);
-            slot2 = random.Next(1, 6);
-            slot3 = random.Next(1, 6);
-
-            Console.Write(slot1 + " ");
-            Console.Write(slot2 + " ");
-            Console.Write(slot3);
-
-
+            random = new Random();
+            icons = new int[NumberOfSlots];
+            for (int i = 0; i < icons.Length; i++)
+            {
+                icons[i] = random.Next(1, IconsPerSlot + 1);
+            }
         }
 
         /// <summary>
@@ -76,7 +72,8 @@ namespace SlotMachine
         public int[] GetResults()
         {
             // TODO
-            return null;
+            PullLever();
+            return icons;
         }
 
         /// <summary>
@@ -86,17 +83,15 @@ namespace SlotMachine
         /// <returns>number of pennies to pay out</returns>
         public int GetPayout()
         {
-            if (slot1 == slot2 && slot1 == slot3)
+            if (icons[0] == icons[1] && icons[0] == icons[2])
             {
                 return CurrentBet * 2;
-               
             }
             else
             {
-                return CurrentBet - CurrentBet;
-                
+                return 0;
             }
-            
+
         }
 
     }
