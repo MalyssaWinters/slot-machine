@@ -9,11 +9,22 @@ namespace SlotMachine
     class SlotMachine
     {
         public int NumberOfSlots { get; set; }
-
+        private int _numberOfSlots
+        {
+            get
+            {
+                return _numberOfSlots;
+            }
+            set
+            {
+                _numberOfSlots = value;
+                icons = new int[value]; // could also put [_numberOfSlots]
+            }
+        }
         public int IconsPerSlot { get; set; }
         public int MinimumBet { get; set; }
         public int MaximumBet { get; set; }
-        Random random;
+        private Random random;
 
         private int _currentBet;
         public int CurrentBet
@@ -49,6 +60,10 @@ namespace SlotMachine
             IconsPerSlot = 5;
             MinimumBet = 1;
             MaximumBet = 100;
+            // Random(); is actually a pseudo-random generator; meaning it starts at a seed
+            // then does some math off of that seed to get the next 'random' number
+            // and continues the same math to get the next 'random' number
+            random = new Random();
         }
 
         /// <summary>
@@ -57,11 +72,12 @@ namespace SlotMachine
         public void PullLever()
         {
             // TODO
-            random = new Random();
-            icons = new int[NumberOfSlots];
+            // loop over the icons
+            // pick random numbers
             for (int i = 0; i < icons.Length; i++)
             {
                 icons[i] = random.Next(1, IconsPerSlot + 1);
+                // incons[i] = random.Next(IconsPerSlot) + 1;
             }
         }
 
@@ -83,15 +99,22 @@ namespace SlotMachine
         /// <returns>number of pennies to pay out</returns>
         public int GetPayout()
         {
-            if (icons[0] == icons[1] && icons[0] == icons[2])
-            {
-                return CurrentBet * 2;
-            }
-            else
-            {
-                return 0;
-            }
+            int slot1 = icons[0];
+            int payout = 0;
+            int equalCount = 0;
 
+            for (int i = 1; i < icons.Length; i++)
+            {
+                if (icons[i] == slot1)
+                {
+                    equalCount++;
+                }
+                if (equalCount == icons.Length - 1)
+                {
+                    payout = slot1 * CurrentBet * 100;
+                }
+            }
+            return payout;
         }
 
     }
